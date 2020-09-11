@@ -1,5 +1,8 @@
 # Import Dependencies
 from flask import Flask, jsonify
+import pandas as pd
+import csv
+import os
 # Initialize Flask
 app = Flask(__name__)
 # Flask Routes
@@ -20,8 +23,9 @@ def home():
 
 @app.route("/api/v1.0/precipitation")
 def Precipitation():
-    #jsonPrecipitation = jsonify(PLACEHOLDER)
-    jsonPrecipitation = "#"
+    #csvpath = os.path.join("Resources","Last12moPrcp.csv")
+    Last12moPrcp = pd.read_csv("Last12moPrcp.csv")
+    jsonPrecipitation = jsonify(Last12moPrcp)
     print("precipitation Page Accessed")
     return jsonPrecipitation
 
