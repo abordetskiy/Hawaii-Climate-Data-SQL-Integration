@@ -3,16 +3,17 @@ from flask import Flask, jsonify
 # Initialize Flask
 app = Flask(__name__)
 # Flask Routes
+
 @app.route("/")
 def home():
     print("Home Page Accessed")
-    return '''Welcome to the Climate Analysis app page!
-    Available Routes:
-    /api/v1.0/precipitation
-    /api/v1.0/stations
-    /api/v1.0/tobs
-    /api/v1.0/<start>
-    /api/v1.0/<start>/<end>
+    return '''Welcome to the Climate Analysis app page!<br>
+    Available Routes:<br>
+    /api/v1.0/precipitation<br>
+    /api/v1.0/stations<br>
+    /api/v1.0/tobs<br>
+    /api/v1.0/<start><br>
+    /api/v1.0/<start>/<end><br>
     
     Please enter all dates in a %Y-%m-%d (YYYY-MM-DD) format
     '''
