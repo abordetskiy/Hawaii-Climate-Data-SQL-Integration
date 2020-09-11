@@ -1,8 +1,26 @@
 # Import Dependencies
 from flask import Flask, jsonify
 import pandas as pd
-import csv
-import os
+import datetime as dt
+# Python SQL toolkit and Object Relational Mapper
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, inspect, func
+
+
+# establish engine to sqlite file
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+# reflect an existing database into a new model
+Base = automap_base()
+# reflect the tables 
+Base.prepare(engine,reflect=True)
+# Save references to each table
+Measurement_Table = Base.classes.measurement
+Station_Table = Base.classes.station
+# Create our session (link) from Python to the DB
+mySession = Session(bind=engine)
+
 # Initialize Flask
 app = Flask(__name__)
 # Flask Routes
@@ -23,9 +41,24 @@ def home():
 
 @app.route("/api/v1.0/precipitation")
 def Precipitation():
-    #csvpath = os.path.join("Resources","Last12moPrcp.csv")
-    Last12moPrcp = pd.read_csv("Last12moPrcp.csv")
-    jsonPrecipitation = jsonify(Last12moPrcp)
+    # Calculate the date 1 year ago from the last data point in the database
+    # since session.query returns a tuple, we use [0][0] to get the value at the first entry
+    # and datetime.strptime to convert it to a datetime object 
+    # and subtract a year from it with dt.timedelta
+    DatePrior12Mo = dt.datetime.strptime(mySession.query(func.max(Measurement_Table.date))[0][0],'%Y-%m-%d') - dt.timedelta(days=365)
+    # Perform a query to retrieve the data and precipitation scores
+    Last12moPrcp = mySession.query(Measurement_Table.prcp, Measurement_Table.date)
+    # Save the query results as a Pandas DataFrame
+    Last12moPrcp_df = pd.DataFrame(Last12moPrcp)
+    # Rename columns to capitalize axis labels
+    Last12moPrcp_df = Last12moPrcp_df.rename(columns = {"date":"Date","prcp":"Precipitation"})
+    # Sort the dataframe by date
+    Last12moPrcp_df = Last12moPrcp_df.sort_values(by="Date")
+    # Set the index to the date column
+    Last12moPrcp_df = Last12moPrcp_df.set_index("Date")
+    # Turn dataframe into json
+    jsonPrecipitation = jsonify(Last12moPrcp_df)
+    #jsonPrecipitation = "#"
     print("precipitation Page Accessed")
     return jsonPrecipitation
 
