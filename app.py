@@ -8,22 +8,24 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, inspect, func
 
+# Initialize Flask
+app = Flask(__name__)
+# Flask Routes
 
 # establish engine to sqlite file
-engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+engine = create_engine('sqlite:///Resources/hawaii.sqlite')
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables 
 Base.prepare(engine,reflect=True)
+# We can view all of the classes that automap found
+Base.classes.keys()
 # Save references to each table
 Measurement_Table = Base.classes.measurement
 Station_Table = Base.classes.station
 # Create our session (link) from Python to the DB
 mySession = Session(bind=engine)
 
-# Initialize Flask
-app = Flask(__name__)
-# Flask Routes
 
 @app.route("/")
 def home():
