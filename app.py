@@ -27,22 +27,30 @@ def Precipitation():
     jsonPrecipitation_df = pd.read_csv("Resources/Last12moPrcp.csv")
     # Convert dataframe to json format
     jsonPrecipitation_json = jsonPrecipitation_df.to_json(orient="index")
-    # creates json object capable of being parsed for pretty print
+    # Creates json object capable of being parsed for pretty print
     jsonPrecipitation = json.loads(jsonPrecipitation_json)
     print("precipitation Page Accessed")
     return jsonPrecipitation
 
 @app.route("/api/v1.0/stations")
 def Stations():
-    #jsonStations = jsonify(PLACEHOLDER)
-    jsonStations = "#"
+    # Read output csv from .ipynb script
+    jsonStations_df = pd.read_csv("Resources/StationCounts.csv")
+    # Convert dataframe to json format
+    jsonStations_json = jsonStations_df.to_json(orient="index")
+    # Creates json object capable of being parsed for pretty print
+    jsonStations = json.loads(jsonStations_json)
     print("stations Page Accessed")
     return jsonStations
 
 @app.route("/api/v1.0/tobs")
 def Tobs():
-    #jsonTemps = jsonify(PLACEHOLDER)
-    jsonTemps = "#"
+  # Read output csv from .ipynb script
+    jsonTemps_df = pd.read_csv("Resources/MostActiveStationTemps.csv")
+    # Convert dataframe to json format
+    jsonTemps_json = jsonTemps_df.to_json(orient="index")
+    # Creates json object capable of being parsed for pretty print
+    jsonTemps = json.loads(jsonTemps_json)
     print("tobs Page Accessed")
     return jsonTemps
 
