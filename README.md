@@ -14,6 +14,8 @@
 
     # Temperature Analysis II pulls temperature data for dates one year prior to user inputted start and end dates. I plots these on a bar graph with a vertical error bar. Using a date range of 2016-10-25 - 2016-11-10 (a wonderful two week vacation) shows me an average temperature of around 64(F) with error bar showing between 57(F) and 70(F).
 
+    # Daily Rainfall Average shows a table listing all stations, in order of total precipitation for between the trip dates. It also pulls the normal averages for min, max, and average temperatures. This is outputted in a dataframe and plotted on an unstacked area chart for reference. Using the same date range as before we see that Manda Lyon Arbo has a huge increase in precipitaiton, likely due to it's high latitude. The daily normals seem very comfortable highs in the low 80s, lows in the mid 60's and an average temperature of ~70(F)
+
 
 # app.py: A web app that provides access to the output from the analysis by querying sqlite database and reading CSV file output from .ipynb script. Please use %Y-%m-%d (YYYY-MM-DD) format when entering dates into searchbar.
 
