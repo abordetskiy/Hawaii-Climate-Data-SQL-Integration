@@ -10,7 +10,9 @@
 
     # BONUS ANALYSES:
 
-    # Temperature Analysis pulls temperature data from all stations for June and December. It then runs these numbers through Welch's T-Test to get a pvalue=5.3283128862831936e-05. Based on our limited data points, it seems that differences between June and December temperatures in Hawaii are statistically significant
+    # Temperature Analysis I pulls temperature data from all stations for June and December. It then runs these numbers through Welch's T-Test to get a pvalue=5.3283128862831936e-05. Based on our limited data points, it seems that differences between June and December temperatures in Hawaii are statistically significant
+
+    # Temperature Analysis II pulls temperature data for dates one year prior to user inputted start and end dates. I plots these on a bar graph with a vertical error bar. Using a date range of 2016-10-25 - 2016-11-10 (a wonderful two week vacation) shows me an average temperature of around 64(F) with error bar showing between 57(F) and 70(F).
 
 
 # app.py: A web app that provides access to the output from the analysis by querying sqlite database and reading CSV file output from .ipynb script. Please use %Y-%m-%d (YYYY-MM-DD) format when entering dates into searchbar.
